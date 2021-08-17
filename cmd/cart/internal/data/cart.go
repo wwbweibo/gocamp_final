@@ -2,6 +2,7 @@ package data
 
 import (
 	"context"
+	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"go.mongodb.org/mongo-driver/bson"
@@ -61,7 +62,9 @@ func (r *cartRepo) SaveCart(ctx context.Context, c *biz.Cart) error {
 	for _, x := range c.Items {
 		items = append(items, bson.M{"item_id": x.Id, "quantity": x.Quantity})
 	}
-	result := r.cartColl.FindOneAndUpdate(ctx, bson.M{"s": c.UserId},
-		bson.D{{"user_id", c.UserId}, {"items", items}})
+	result := r.cartColl.FindOneAndUpdate(ctx,
+		bson.M{"s": c.UserId},
+		bson.D{{"$set", bson.D{{"user_id", c.UserId}, {"items", items}}}},
+		options.FindOneAndUpdate().SetUpsert(true))
 	return result.Err()
 }

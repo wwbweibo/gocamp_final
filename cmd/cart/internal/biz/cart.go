@@ -2,7 +2,6 @@ package biz
 
 import (
 	"context"
-
 	"github.com/go-kratos/kratos/v2/log"
 )
 
@@ -43,6 +42,7 @@ func (uc *CartUseCase) AddItem(ctx context.Context, uid int64, in Item) (c *Cart
 	if c, err = uc.repo.GetCart(ctx, uid); err != nil {
 		return nil, err
 	}
+	c.UserId = uid
 	hit := false
 	for _, x := range c.Items {
 		if x.Id == in.Id {
