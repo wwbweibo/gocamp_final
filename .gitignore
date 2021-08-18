@@ -1,2 +1,4 @@
 .idea/
 go.sum
+*.pb.go
+*_gen.go
