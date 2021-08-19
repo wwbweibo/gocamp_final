@@ -12,6 +12,8 @@ import (
 // ProviderSet is server providers.
 var ProviderSet = wire.NewSet(NewGRPCServer, NewRegistrar, NewHTTPServer)
 
+var AdminProviderSet = wire.NewSet(NewAdminGRPCServer, NewRegistrar, NewAdminHTTPServer)
+
 func NewRegistrar(conf *conf.Registry) registry.Registrar {
 	c := consulAPI.DefaultConfig()
 	c.Address = conf.Consul.Address

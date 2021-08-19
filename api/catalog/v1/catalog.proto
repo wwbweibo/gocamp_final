@@ -14,12 +14,12 @@ service Catalog {
         };
     }
 
-    rpc CreateBeer (CreateBeerReq) returns (CreateBeerReply) {
-        option (google.api.http) = {
-            post: "/api/v1/catalog/"
-            body: "*"
-        };
-    }
+//    rpc CreateBeer (CreateBeerReq) returns (CreateBeerReply) {
+//        option (google.api.http) = {
+//            post: "/api/v1/catalog/"
+//            body: "*"
+//        };
+//    }
 
     rpc GetBeer (GetBeerReq) returns (GetBeerReply) {
         option (google.api.http) = {
@@ -27,18 +27,18 @@ service Catalog {
         };
     }
 
-    rpc UpdateBeer (UpdateBeerReq) returns (UpdateBeerReply) {
-        option (google.api.http) = {
-            put: "/api/v1/catalog/"
-            body: "*"
-        };
-    }
-
-    rpc DeleteBeer (DeleteBeerReq) returns (DeleteBeerReply) {
-        option (google.api.http) = {
-            delete: "/api/v1/cart/"
-        };
-    }
+//    rpc UpdateBeer (UpdateBeerReq) returns (UpdateBeerReply) {
+//        option (google.api.http) = {
+//            put: "/api/v1/catalog/"
+//            body: "*"
+//        };
+//    }
+//
+//    rpc DeleteBeer (DeleteBeerReq) returns (DeleteBeerReply) {
+//        option (google.api.http) = {
+//            delete: "/api/v1/cart/"
+//        };
+//    }
 }
 
 
@@ -61,26 +61,26 @@ message ListBeerReply {
     repeated Beer results = 1;
 }
 
-message CreateBeerReq {
-    message Image {
-        string url = 1;
-    }
-    string name = 1;
-    string description = 2;
-    int64 count = 3;
-    repeated Image image = 4;
-}
-
-message CreateBeerReply {
-    message Image {
-        string url = 1;
-    }
-    int64 id = 1;
-    string name = 2;
-    string description = 3;
-    int64 count = 4;
-    repeated Image image = 5;
-}
+//message CreateBeerReq {
+//    message Image {
+//        string url = 1;
+//    }
+//    string name = 1;
+//    string description = 2;
+//    int64 count = 3;
+//    repeated Image image = 4;
+//}
+//
+//message CreateBeerReply {
+//    message Image {
+//        string url = 1;
+//    }
+//    int64 id = 1;
+//    string name = 2;
+//    string description = 3;
+//    int64 count = 4;
+//    repeated Image image = 5;
+//}
 
 message GetBeerReq {
     int64 id = 1;
@@ -96,32 +96,32 @@ message GetBeerReply {
     int64 count = 4;
     repeated Image image = 5;
 }
-
-message UpdateBeerReq {
-    message Image {
-        string url = 1;
-    }
-    int64 id = 1;
-    string name = 2;
-    string description = 3;
-    int64 count = 4;
-    repeated Image image = 5;
-}
-
-message UpdateBeerReply {
-    message Image {
-        string url = 1;
-    }
-    int64 id = 1;
-    string name = 2;
-    string description = 3;
-    int64 count = 4;
-    repeated Image image = 5;
-}
-
-message DeleteBeerReq {
-    int64 id = 1;
-}
-
-message DeleteBeerReply {
-}
+//
+//message UpdateBeerReq {
+//    message Image {
+//        string url = 1;
+//    }
+//    int64 id = 1;
+//    string name = 2;
+//    string description = 3;
+//    int64 count = 4;
+//    repeated Image image = 5;
+//}
+//
+//message UpdateBeerReply {
+//    message Image {
+//        string url = 1;
+//    }
+//    int64 id = 1;
+//    string name = 2;
+//    string description = 3;
+//    int64 count = 4;
+//    repeated Image image = 5;
+//}
+//
+//message DeleteBeerReq {
+//    int64 id = 1;
+//}
+//
+//message DeleteBeerReply {
+//}

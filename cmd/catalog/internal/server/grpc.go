@@ -1,6 +1,7 @@
 package server
 
 import (
+	v1a "eshop/api/catalog/admin/v1"
 	"eshop/api/catalog/v1"
 	"eshop/cmd/catalog/internal/conf"
 	"eshop/cmd/catalog/internal/service"
@@ -34,5 +35,28 @@ func NewGRPCServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvide
 	}
 	srv := grpc.NewServer(opts...)
 	v1.RegisterCatalogServer(srv, s)
+	return srv
+}
+
+func NewAdminGRPCServer(c *conf.Server, logger log.Logger, tp *tracesdk.TracerProvider, s *service.CatalogService) *grpc.Server {
+	var opts = []grpc.ServerOption{
+		grpc.Middleware(
+			recovery.Recovery(),
+			tracing.Server(
+				tracing.WithTracerProvider(tp)),
+			logging.Server(logger),
+		),
+	}
+	if c.Grpc.Network != "" {
+		opts = append(opts, grpc.Network(c.Grpc.Network))
+	}
+	if c.Grpc.Addr != "" {
+		opts = append(opts, grpc.Address(c.Grpc.Addr))
+	}
+	if c.Grpc.Timeout != nil {
+		opts = append(opts, grpc.Timeout(c.Grpc.Timeout.AsDuration()))
+	}
+	srv := grpc.NewServer(opts...)
+	v1a.RegisterCatalogAdminServer(srv, s)
 	return srv
 }
