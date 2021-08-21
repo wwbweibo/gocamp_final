@@ -53,6 +53,17 @@ func (rp *userRepo) Login(ctx context.Context, u *biz.User) (string, error) {
 	return "", errors.New("login failed")
 }
 
+func (rp *userRepo) GetUser(ctx context.Context, id int64) (*biz.User, error) {
+	req := usV1.GetUserReq{
+		Id: id,
+	}
+	reply, err := rp.data.uc.GetUser(ctx, &req)
+	if err != nil {
+		return nil, err
+	}
+	return &biz.User{Id: reply.Id, Username: reply.Username}, err
+}
+
 func (rp *userRepo) Logout(ctx context.Context, u *biz.User) error {
 	return nil
 }

@@ -29,6 +29,7 @@ type Card struct {
 type UserRepo interface {
 	Register(ctx context.Context, u *User) (*User, error)
 	Login(ctx context.Context, u *User) (string, error)
+	GetUser(ctx context.Context, id int64) (*User, error)
 
 	CreateAddress(ctx context.Context, uid int64, a *Address) (*Address, error)
 	GetAddress(ctx context.Context, id int64) (*Address, error)
@@ -68,6 +69,10 @@ func (uc *UserUseCase) Login(ctx context.Context, u *User) (string, error) {
 
 func (uc *UserUseCase) Logout(ctx context.Context, u *User) error {
 	return nil
+}
+
+func (uc *UserUseCase) GetUser(ctx context.Context, id int64) (*User, error) {
+	return uc.repo.GetUser(ctx, id)
 }
 
 func (uc *UserUseCase) CreateAddress(ctx context.Context, uid int64, a *Address) (*Address, error) {

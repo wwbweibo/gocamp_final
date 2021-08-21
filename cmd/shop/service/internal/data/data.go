@@ -32,6 +32,7 @@ var ProviderSet = wire.NewSet(
 	NewCatalogServiceClient,
 	NewUserRepo,
 	NewBeerRepo,
+	NewCartRepo,
 )
 
 // Data .

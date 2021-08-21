@@ -8,6 +8,12 @@ option go_package = "api/shop/service/v1;v1";
 
 
 service ShopInterface {
+    rpc Index (IndexReq) returns (IndexReply) {
+        option (google.api.http) = {
+            get: "/v1"
+        };
+    }
+
     rpc Register (RegisterReq) returns (RegisterReply) {
         option (google.api.http) = {
             post: "/v1/register"
@@ -66,6 +72,21 @@ service ShopInterface {
             get: "/v1/orders"
         };
     }
+}
+
+message IndexReq {
+    int64 user_id = 1;
+}
+
+message IndexReply {
+    User user = 1;
+    ListCartItemReply cart = 2;
+    ListBeerReply beer = 3;
+}
+
+message User {
+    int64 id = 1;
+    string username = 2;
 }
 
 message RegisterReq {
@@ -129,20 +150,32 @@ message GetBeerReply {
 }
 
 message ListCartItemReq {
-    int64 page_num = 1;
-    int64 page_size = 2;
+    int64 user_id = 1;
+    int64 page_num = 2;
+    int64 page_size = 3;
 }
 
 message ListCartItemReply {
+    message Item {
+        int64 item_id = 1;
+        int64 quantity = 2;
+    }
+    repeated Item items = 1;
 
 }
 
 message AddCartItemReq {
-
+    int64 user_id = 1;
+    int64 item_id = 2;
+    int64 quantity = 3;
 }
 
 message AddCartItemReply {
-
+    message Item {
+        int64 item_id = 1;
+        int64 quantity = 2;
+    }
+    repeated Item items = 1;
 }
 
 message CreateOrderReq {
